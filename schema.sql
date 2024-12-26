@@ -1,3 +1,7 @@
+CREATE DATABASE ecommerce;
+
+USE ecommerce;
+
 CREATE TABLE users (
   user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   first_name varchar(255) NOT NULL,
@@ -20,10 +24,10 @@ CREATE TABLE orders(
 ) engine=innodb;
 
 CREATE TABLE order_details(
-  order_details_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  product_id INT UNSIGNED,
-  order_id INT UNSIGNED,
-  quantity INT NOT NULL
+  order_detail_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  order_id INT UNSIGNED NOT NULL,
+  product_id INT UNSIGNED NOT NULL,
+  quantity INT NOT NULL,
   FOREIGN KEY (product_id) REFERENCES products(product_id),
   FOREIGN KEY (order_id) REFERENCES orders(order_id)
 )engine=innodb;
