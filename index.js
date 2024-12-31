@@ -47,6 +47,16 @@ async function main() {
     });
   });
 
+  app.get("/order_details", async (req, res) => {
+    let [order_details] = await connection.execute(
+      "SELECT * FROM order_details JOIN orders ON order_details.order_id=orders.order_id JOIN products ON order_details.product_id=products.product_id ORDER BY order_detail_id"
+    );
+
+    res.render("order_details", {
+      order_details: order_details,
+    });
+  });
+
   app.get("/", (req, res) => {
     res.send("Hello World!");
   });
@@ -61,8 +71,8 @@ app.listen(3000, () => {
 /*
 R
 - display products table X
-- display orders & users (table join)
-- display order details table
+- display orders & users (table join) X
+- display order details table 
 - search order details table
 
 C
@@ -74,4 +84,7 @@ U
 
 D
 - delete order details
+
+Nav bar & footer;
+ui/ux - actual interface for search/edit/delete?
 */
