@@ -57,6 +57,38 @@ async function main() {
     });
   });
 
+  app.get("/search", async (req, res) => {
+    let query =
+      "SELECT * FROM order_details JOIN orders ON order_details.order_id=orders.order_id JOIN products ON order_details.product_id=products.product_id WHERE 1";
+
+    let bindings = [];
+
+    const { order_detail_id, order_id, name } = req.query;
+
+    if (order_detail_id) {
+      query += " AND order_detail_id=?";
+      bindings.push(order_detail_id);
+    }
+
+    if (order_id) {
+      query += " AND orders.order_id=?";
+      bindings.push(order_id);
+    }
+
+    if (name) {
+      query += " AND name LIKE ?";
+      bindings.push("%" + name + "%");
+    }
+
+    console.log("query params:", { order_id, name });
+
+    const [order_details] = await connection.execute(query, bindings);
+
+    res.render("order_details", {
+      order_details: order_details,
+    });
+  });
+
   app.get("/", (req, res) => {
     res.send("Hello World!");
   });
@@ -72,7 +104,7 @@ app.listen(3000, () => {
 R
 - display products table X
 - display orders & users (table join) X
-- display order details table 
+- display order details table X
 - search order details table
 
 C
