@@ -37,6 +37,16 @@ async function main() {
     });
   });
 
+  app.get("/orders", async (req, res) => {
+    let [orders] = await connection.execute(
+      "SELECT * FROM orders JOIN users ON orders.user_id=users.user_id"
+    );
+
+    res.render("orders", {
+      orders: orders,
+    });
+  });
+
   app.get("/", (req, res) => {
     res.send("Hello World!");
   });
@@ -50,7 +60,7 @@ app.listen(3000, () => {
 
 /*
 R
-- display products table
+- display products table X
 - display orders & users (table join)
 - display order details table
 - search order details table
