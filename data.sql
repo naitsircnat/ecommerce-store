@@ -8,9 +8,9 @@ INSERT INTO users(first_name, last_name, email, address) VALUES ("Mary", "Low", 
 INSERT INTO users (first_name, last_name, email, address) VALUES ("Robert", "Yeo", "robert@robert.com", "789 Robert Road, #-04-44");
 
 -- Add products
-INSERT INTO products (name, price) VALUES ("MacBook Air", 1000);
-INSERT INTO products (name, price) VALUES ("Sony Headphones", 200);
-INSERT INTO products (name, price) VALUES ("Logitech Mouse", 20);
+INSERT INTO products (name, price) VALUES ("MacBook Air", 999.90);
+INSERT INTO products (name, price) VALUES ("Sony Headphones", 199.90);
+INSERT INTO products (name, price) VALUES ("Logitech Mouse", 19.90);
 
 -- Add orders
 INSERT INTO orders (date_time, user_id) VALUES (NOW(),1);
