@@ -1,6 +1,36 @@
 {{#extends "base"}}
   {{#block "content"}}
     <h1>Order Details</h1>
+
+    <h2>Search</h2>
+    <form method="GET">
+      <label>Order Detail ID</label>
+      <input
+        type="text"
+        name="order_detail_id"
+        value="{{searchTerms.order_detail_id}}"
+        class="form-control mb-3"
+      />
+
+      <label>Order ID</label>
+      <input
+        type="text"
+        name="order_id"
+        value="{{searchTerms.order_id}}"
+        class="form-control mb-3"
+      />
+
+      <label>Product Name</label>
+      <input
+        type="text"
+        name="name"
+        value="{{searchTerms.name}}"
+        class="form-control mb-3"
+      />
+
+      <input type="submit" class="btn btn-primary" />
+    </form>
+
     <table class="table">
       <tr>
         <th>Order Detail ID</th>
