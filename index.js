@@ -29,6 +29,7 @@ async function main() {
     password: process.env.DB_PASSWORD,
   });
 
+  // VIEW PRODUCTS
   app.get("/products", async (req, res) => {
     let [products] = await connection.execute("SELECT * FROM products");
 
@@ -37,9 +38,10 @@ async function main() {
     });
   });
 
+  // VIEW ORDERS
   app.get("/orders", async (req, res) => {
     let [orders] = await connection.execute(
-      "SELECT * FROM orders JOIN users ON orders.user_id=users.user_id"
+      "SELECT * FROM orders JOIN users ON orders.user_id=users.user_id ORDER BY order_id"
     );
 
     res.render("orders", {
@@ -47,7 +49,7 @@ async function main() {
     });
   });
 
-  // SEARCH
+  // VIEW/SEARCH ORDER DETAILS
   app.get("/order_details", async (req, res) => {
     let query =
       "SELECT * FROM order_details JOIN orders ON order_details.order_id=orders.order_id JOIN products ON order_details.product_id=products.product_id WHERE 1";
@@ -81,6 +83,23 @@ async function main() {
     });
   });
 
+  // CREATE ORDER
+  app.get("/orders/create", async (req, res) => {
+    res.render("create_order");
+  });
+
+  app.post("/orders/create", async (req, res) => {
+    const user_id = req.body.user_id;
+
+    let query = "INSERT INTO orders (date_time, user_id) VALUES (NOW(), ?)";
+
+    let bindings = [user_id];
+
+    await connection.execute(query, bindings);
+
+    res.redirect("/orders");
+  });
+
   app.get("/", (req, res) => {
     res.send("Hello World!");
   });
@@ -97,7 +116,7 @@ R
 - display products table X
 - display orders & users (table join) X
 - display order details table X
-- search order details table ..
+- search order details table X
 
 C
 - create order
@@ -110,5 +129,5 @@ D
 - delete order details
 
 Nav bar & footer;
-ui/ux - actual interface for search/edit/delete?
+ui/ux - actual interface for edit/delete?
 */

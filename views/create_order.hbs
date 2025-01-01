@@ -1,0 +1,15 @@
+{{#extends "base"}}
+  {{#block "content"}}
+
+    <h1>Create Order</h1>
+
+    <form method="POST">
+      <label>Customer ID</label>
+      <input type="text" name="user_id" class="form-control mb-3" />
+      <p class="small text-muted">After creating this order, please create order
+        details in the Order Details form.</p>
+      <input type="submit" class="btn btn-primary" value="Create Order" />
+    </form>
+
+  {{/block}}
+{{/extends}}
