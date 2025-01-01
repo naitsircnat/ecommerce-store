@@ -1,0 +1,17 @@
+{{#extends "base"}}
+  {{#block "content"}}
+    <h1>Create Order Details</h1>
+    <form method="POST">
+      <label>Order ID</label>
+      <input type="text" name="order_id" class="form-control mb-3" />
+
+      <label>Product ID</label>
+      <input type="text" name="product_id" class="form-control mb-3" />
+
+      <label>Quantity</label>
+      <input type="number" name="quantity" class="form-control mb-3" />
+
+      <input type="submit" class="btn btn-primary" value="Add Order Detail" />
+    </form>
+  {{/block}}
+{{/extends}}

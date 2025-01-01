@@ -20,6 +20,14 @@
         class="form-control mb-3"
       />
 
+      <label>Product ID</label>
+      <input
+        type="text"
+        name="product_id"
+        value="{{searchTerms.product_id}}"
+        class="form-control mb-3"
+      />
+
       <label>Product Name</label>
       <input
         type="text"
@@ -35,6 +43,7 @@
       <tr>
         <th>Order Detail ID</th>
         <th>Order ID</th>
+        <th>Product ID</th>
         <th>Product</th>
         <th>Qty</th>
       </tr>
@@ -43,6 +52,7 @@
         <tr>
           <td>{{order_detail_id}}</td>
           <td>{{order_id}}</td>
+          <td>{{product_id}}</td>
           <td>{{name}}</td>
           <td>{{quantity}}</td>
         </tr>

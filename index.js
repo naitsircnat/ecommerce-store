@@ -56,7 +56,7 @@ async function main() {
 
     let bindings = [];
 
-    const { order_detail_id, order_id, name } = req.query;
+    const { order_detail_id, order_id, product_id, name } = req.query;
 
     if (order_detail_id) {
       query += " AND order_detail_id=?";
@@ -68,12 +68,17 @@ async function main() {
       bindings.push(order_id);
     }
 
+    if (product_id) {
+      query += " AND order_details.product_id=?";
+      bindings.push(product_id);
+    }
+
     if (name) {
       query += " AND name LIKE ?";
       bindings.push("%" + name + "%");
     }
 
-    console.log("query params:", { order_id, name });
+    query += " ORDER BY order_detail_id";
 
     const [order_details] = await connection.execute(query, bindings);
 
@@ -100,6 +105,25 @@ async function main() {
     res.redirect("/orders");
   });
 
+  // CREATE ORDER DETAILS
+  app.get("/order_details/create", async (req, res) => {
+    res.render("create_order_details");
+  });
+
+  app.post("/order_details/create", async (req, res) => {
+    const { order_id, product_id, quantity } = req.body;
+
+    let query =
+      "INSERT INTO order_details (order_id, product_id, quantity) VALUES (?,?,?)";
+
+    let bindings = [order_id, product_id, quantity];
+
+    await connection.execute(query, bindings);
+
+    res.redirect("/order_details");
+  });
+
+  // TEST
   app.get("/", (req, res) => {
     res.send("Hello World!");
   });
@@ -119,8 +143,8 @@ R
 - search order details table X
 
 C
-- create order
-- create order detail
+- create order X
+- create order details X
 
 U
 - update order details
@@ -130,4 +154,10 @@ D
 
 Nav bar & footer;
 ui/ux - actual interface for edit/delete?
+
+Other notes:
+- Put an Add Order Detail button to Orders page?
+- Add Clear option for search 
+- Add error handling
+- Provide user feedback? e.g. "Successful"
 */
