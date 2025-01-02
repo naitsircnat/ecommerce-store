@@ -59,9 +59,12 @@
                 class="btn btn-secondary"
               >Update</button></a></td>
 
-          <td><button class="btn btn-danger">Delete</button></td>
+          <td><a href="/order_details/{{order_detail_id}}/delete"><button
+                class="btn btn-danger"
+              >Delete</button></a></td>
         </tr>
       {{/each}}
+
     </table>
   {{/block}}
 {{/extends}}

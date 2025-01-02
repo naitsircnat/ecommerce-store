@@ -3,6 +3,7 @@ const hbs = require("hbs");
 const wax = require("wax-on");
 require("dotenv").config();
 const { createConnection } = require("mysql2/promise");
+const swal = require("sweetalert2");
 
 let app = express();
 
@@ -149,6 +150,27 @@ async function main() {
       "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
 
     let bindings = [order_id, product_id, quantity, order_detail_id];
+
+    await connection.execute(query, bindings);
+
+    res.redirect("/order_details");
+  });
+
+  // DELETE ORDER DETAIL
+  app.get("/order_details/:order_detail_id/delete", async (req, res) => {
+    const order_detail_id = req.params.order_detail_id;
+
+    res.render("delete", {
+      order_detail_id: order_detail_id,
+    });
+  });
+
+  app.post("/order_details/:order_detail_id/delete", async (req, res) => {
+    const order_detail_id = req.params.order_detail_id;
+
+    let query = "DELETE FROM order_details WHERE order_detail_id=?";
+
+    let bindings = [order_detail_id];
 
     await connection.execute(query, bindings);
 

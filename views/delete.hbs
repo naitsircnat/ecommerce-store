@@ -1,0 +1,12 @@
+{{#extends "base"}}
+  {{#block "content"}}
+    <h1>Confirm Deletion</h1>
+    <form method="POST">
+      <p>Are you sure you want to delete Order Detail ID
+        {{order_detail_id}}?</p>
+      <input type="submit" class="btn btn-primary" value="Confirm" />
+      <a href="/order_details" class="btn btn-secondary">Cancel</a>
+    </form>
+
+  {{/block}}
+{{/extends}}
