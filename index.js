@@ -3,7 +3,6 @@ const hbs = require("hbs");
 const wax = require("wax-on");
 require("dotenv").config();
 const { createConnection } = require("mysql2/promise");
-const swal = require("sweetalert2");
 
 let app = express();
 

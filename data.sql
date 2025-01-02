@@ -10,7 +10,7 @@ INSERT INTO users (first_name, last_name, email, address) VALUES ("Robert", "Yeo
 -- Add products
 INSERT INTO products (name, price) VALUES ("MacBook Air 13-inch", 999.90);
 INSERT INTO products (name, price) VALUES ("Sony 1000XM5 Headphones", 299.90);
-INSERT INTO products (name, price) VALUES ("Logitech Mouse", 19.90);
+INSERT INTO products (name, price) VALUES ("Logitech MX Master 2S Mouse", 69.90);
 INSERT INTO products (name, price) VALUES ("Apple Watch Series 10", 799.90);
 INSERT INTO products (name, price) VALUES ("Google Pixel 8a", 799.90);
 
