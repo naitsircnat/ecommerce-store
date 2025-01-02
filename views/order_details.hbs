@@ -1,8 +1,8 @@
 {{#extends "base"}}
   {{#block "content"}}
-    <h1>Order Details</h1>
+    <h2>Order Details</h2>
 
-    <h2>Search</h2>
+    <h4>Search</h4>
     <form method="GET">
       <label>Order Detail ID</label>
       <input
@@ -37,6 +37,7 @@
       />
 
       <input type="submit" class="btn btn-primary" value="Search" />
+      <a href="/order_details" class="btn btn-secondary">Clear</a>
     </form>
 
     <table class="table">
@@ -56,7 +57,7 @@
           <td>{{name}}</td>
           <td>{{quantity}}</td>
           <td><a href="/order_details/{{order_detail_id}}/update"><button
-                class="btn btn-secondary"
+                class="btn btn-success"
               >Update</button></a></td>
 
           <td><a href="/order_details/{{order_detail_id}}/delete"><button

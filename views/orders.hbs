@@ -1,7 +1,7 @@
 {{#extends "base"}}
   {{#block "content"}}
 
-    <h1>Orders</h1>
+    <h2>Orders</h2>
     <table class="table">
       <tr>
         <th>Order ID</th>
@@ -22,6 +22,8 @@
         </tr>
       {{/each}}
     </table>
+    <a href="/orders/create" class="btn btn-primary">Create Order</a>
+    <a href="/order_details/create" class="btn btn-success">Add Order Detail</a>
 
   {{/block}}
 {{/extends}}
