@@ -1,2 +1,5 @@
 image:
   file: .gitpod.dockerfile
+
+tasks:
+  - init: cp /workspace/.env-backup .env || echo ".env file not found in backup"
