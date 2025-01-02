@@ -187,9 +187,10 @@ D
 Nav bar & footer;
 ui/ux - actual interface for edit/delete?
 
-Other notes:
+Other follow-ups:
 - Put an Add Order Detail button to Orders page?
 - Add Clear option for search 
 - Add error handling
 - Provide user feedback? e.g. "Successful" - use alerts? which will contain link to listing page to verify
+- create folders for hbs files?
 */

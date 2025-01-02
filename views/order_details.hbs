@@ -36,7 +36,7 @@
         class="form-control mb-3"
       />
 
-      <input type="submit" class="btn btn-primary" />
+      <input type="submit" class="btn btn-primary" value="Search" />
     </form>
 
     <table class="table">
@@ -55,6 +55,11 @@
           <td>{{product_id}}</td>
           <td>{{name}}</td>
           <td>{{quantity}}</td>
+          <td><a href="/order_details/{{order_detail_id}}/update"><button
+                class="btn btn-secondary"
+              >Update</button></a></td>
+
+          <td><button class="btn btn-danger">Delete</button></td>
         </tr>
       {{/each}}
     </table>
