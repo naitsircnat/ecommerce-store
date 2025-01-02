@@ -123,6 +123,38 @@ async function main() {
     res.redirect("/order_details");
   });
 
+  // UPDATE ORDER DETAILS
+  app.get("/order_details/:order_detail_id/update", async (req, res) => {
+    const order_detail_id = req.params.order_detail_id;
+
+    let query = "SELECT * FROM order_details WHERE order_detail_id=?";
+
+    let bindings = [order_detail_id];
+
+    let [order_details] = await connection.execute(query, bindings);
+
+    let order_detail = order_details[0];
+
+    res.render("update_order_details", {
+      order_detail: order_detail,
+    });
+  });
+
+  app.post("/order_details/:order_detail_id/update", async (req, res) => {
+    const order_detail_id = req.params.order_detail_id;
+
+    const { order_id, product_id, quantity } = req.body;
+
+    let query =
+      "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
+
+    let bindings = [order_id, product_id, quantity, order_detail_id];
+
+    await connection.execute(query, bindings);
+
+    res.redirect("/order_details");
+  });
+
   // TEST
   app.get("/", (req, res) => {
     res.send("Hello World!");
@@ -159,5 +191,5 @@ Other notes:
 - Put an Add Order Detail button to Orders page?
 - Add Clear option for search 
 - Add error handling
-- Provide user feedback? e.g. "Successful"
+- Provide user feedback? e.g. "Successful" - use alerts? which will contain link to listing page to verify
 */

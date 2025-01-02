@@ -1,0 +1,36 @@
+{{#extends "base"}}
+  {{#block "content"}}
+    <h1>Update Order Detail</h1>
+    <form method="POST">
+      <label>Order ID</label>
+      <input
+        type="text"
+        name="order_id"
+        class="form-control mb-3"
+        value="{{order_detail.order_id}}"
+      />
+
+      <label>Product ID</label>
+      <input
+        type="text"
+        name="product_id"
+        class="form-control mb-3"
+        value="{{order_detail.product_id}}"
+      />
+
+      <label>Quantity</label>
+      <input
+        type="number"
+        name="quantity"
+        class="form-control mb-3"
+        value="{{order_detail.quantity}}"
+      />
+
+      <input
+        type="submit"
+        class="btn btn-primary"
+        value="Update Order Detail"
+      />
+    </form>
+  {{/block}}
+{{/extends}}
