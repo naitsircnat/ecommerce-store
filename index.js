@@ -39,6 +39,15 @@ async function main() {
   //   password: process.env.DB_PASSWORD,
   // });
 
+  // VIEW USERS
+  app.get("/users", async (req, res) => {
+    let [users] = await connection.execute("SELECT * FROM users");
+
+    res.render("users", {
+      users: users,
+    });
+  });
+
   // VIEW PRODUCTS
   app.get("/products", async (req, res) => {
     let [products] = await connection.execute("SELECT * FROM products");
@@ -200,8 +209,8 @@ app.listen(3000, () => {
 
 /*
 Other follow-ups:
+- Create users page
+- Add validation
 - Solve footer issue
-- Add error handling
-- Add other functions
-- create folders for hbs files?
+- create folders for hbs files
 */
