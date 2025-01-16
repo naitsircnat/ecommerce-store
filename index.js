@@ -157,73 +157,79 @@ async function main() {
   });
 
   app.post("/order_details/create", async (req, res) => {
-    const { order_id, product_id, quantity } = req.body;
+    try {
+      const { order_id, product_id, quantity } = req.body;
 
-    if (!order_id) {
-      return res.status(400).send(`
+      if (!order_id) {
+        return res.status(400).send(`
         <script>
           alert("Order ID is required.");
           window.history.back();
         </script>
       `);
-    }
+      }
 
-    if (!product_id) {
-      return res.status(400).send(`
+      if (!product_id) {
+        return res.status(400).send(`
         <script>
           alert("Product ID is required.");
           window.history.back();
         </script>
       `);
-    }
+      }
 
-    if (!quantity) {
-      return res.status(400).send(`
+      if (!quantity) {
+        return res.status(400).send(`
         <script>
           alert("Quantity is required.");
           window.history.back();
         </script>
       `);
-    }
+      }
 
-    const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
+      const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
 
-    const [orderId] = await connection.execute(orderIdCheck, [order_id]);
+      const [orderId] = await connection.execute(orderIdCheck, [order_id]);
 
-    if (orderId.length == 0) {
-      return res.status(400).send(
-        `
+      if (orderId.length == 0) {
+        return res.status(400).send(
+          `
         <script>
           alert("Please enter a valid Order ID.")
           window.history.back();
         </script>
         `
-      );
-    }
+        );
+      }
 
-    const productIdCheck = "SELECT * FROM products WHERE product_id=?";
+      const productIdCheck = "SELECT * FROM products WHERE product_id=?";
 
-    const [productId] = await connection.execute(productIdCheck, [product_id]);
+      const [productId] = await connection.execute(productIdCheck, [
+        product_id,
+      ]);
 
-    if (productId.length == 0) {
-      return res.status(400).send(
-        `
+      if (productId.length == 0) {
+        return res.status(400).send(
+          `
         <script>
           alert("Please enter a valid Product ID.")
           window.history.back();
         </script>
         `
-      );
+        );
+      }
+
+      let query =
+        "INSERT INTO order_details (order_id, product_id, quantity) VALUES (?,?,?)";
+
+      let bindings = [order_id, product_id, quantity];
+
+      await connection.execute(query, bindings);
+
+      res.redirect("/order_details");
+    } catch (error) {
+      console.error("Error creating order detail: ", error);
     }
-
-    let query =
-      "INSERT INTO order_details (order_id, product_id, quantity) VALUES (?,?,?)";
-
-    let bindings = [order_id, product_id, quantity];
-
-    await connection.execute(query, bindings);
-
-    res.redirect("/order_details");
   });
 
   // UPDATE ORDER DETAILS
@@ -244,75 +250,81 @@ async function main() {
   });
 
   app.post("/order_details/:order_detail_id/update", async (req, res) => {
-    const order_detail_id = req.params.order_detail_id;
+    try {
+      const order_detail_id = req.params.order_detail_id;
 
-    const { order_id, product_id, quantity } = req.body;
+      const { order_id, product_id, quantity } = req.body;
 
-    if (!order_id) {
-      return res.status(400).send(`
+      if (!order_id) {
+        return res.status(400).send(`
         <script>
           alert("Order ID is required.");
           window.history.back();
         </script>
       `);
-    }
+      }
 
-    if (!product_id) {
-      return res.status(400).send(`
+      if (!product_id) {
+        return res.status(400).send(`
         <script>
           alert("Product ID is required.");
           window.history.back();
         </script>
       `);
-    }
+      }
 
-    if (!quantity) {
-      return res.status(400).send(`
+      if (!quantity) {
+        return res.status(400).send(`
         <script>
           alert("Quantity is required.");
           window.history.back();
         </script>
       `);
-    }
+      }
 
-    const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
+      const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
 
-    const [orderId] = await connection.execute(orderIdCheck, [order_id]);
+      const [orderId] = await connection.execute(orderIdCheck, [order_id]);
 
-    if (orderId.length == 0) {
-      return res.status(400).send(
-        `
+      if (orderId.length == 0) {
+        return res.status(400).send(
+          `
         <script>
           alert("Please enter a valid Order ID.")
           window.history.back();
         </script>
         `
-      );
-    }
+        );
+      }
 
-    const productIdCheck = "SELECT * FROM products WHERE product_id=?";
+      const productIdCheck = "SELECT * FROM products WHERE product_id=?";
 
-    const [productId] = await connection.execute(productIdCheck, [product_id]);
+      const [productId] = await connection.execute(productIdCheck, [
+        product_id,
+      ]);
 
-    if (productId.length == 0) {
-      return res.status(400).send(
-        `
+      if (productId.length == 0) {
+        return res.status(400).send(
+          `
         <script>
           alert("Please enter a valid Product ID.")
           window.history.back();
         </script>
         `
-      );
+        );
+      }
+
+      let query =
+        "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
+
+      let bindings = [order_id, product_id, quantity, order_detail_id];
+
+      await connection.execute(query, bindings);
+
+      res.redirect("/order_details");
+    } catch (error) {
+      console.error("Error updating order detail: ", error);
     }
-
-    let query =
-      "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
-
-    let bindings = [order_id, product_id, quantity, order_detail_id];
-
-    await connection.execute(query, bindings);
-
-    res.redirect("/order_details");
   });
 
   // DELETE ORDER DETAIL
