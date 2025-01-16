@@ -199,25 +199,6 @@ app.listen(3000, () => {
 });
 
 /*
-R
-- display products table X
-- display orders & users (table join) X
-- display order details table X
-- search order details table X
-
-C
-- create order X
-- create order details X
-
-U
-- update order details
-
-D
-- delete order details
-
-Nav bar & footer;
-ui/ux - actual interface for edit/delete?
-
 Other follow-ups:
 - Solve footer issue
 - Add error handling
