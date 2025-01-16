@@ -350,8 +350,6 @@ app.listen(3000, () => {
 
 /*
 Other follow-ups:
-- Create users page
-- Add validation
 - Add ability to delete order
 - Solve footer issue
 - create folders for hbs files
