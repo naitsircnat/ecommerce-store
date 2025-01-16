@@ -220,8 +220,7 @@ ui/ux - actual interface for edit/delete?
 
 Other follow-ups:
 - Solve footer issue
-- 
 - Add error handling
-- Provide user feedback? e.g. "Successful" - use alerts? which will contain link to listing page to verify
+- Add other functions
 - create folders for hbs files?
 */
