@@ -23,21 +23,21 @@ let connection;
 
 async function main() {
   // for running locally
-  // connection = await createConnection({
-  //   host: process.env.DB_HOST,
-  //   user: process.env.DB_USER,
-  //   database: process.env.DB_NAME,
-  //   password: process.env.DB_PASSWORD,
-  // });
-
-  // for connecting to aiven
   connection = await createConnection({
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
   });
+
+  // for connecting to aiven
+  // connection = await createConnection({
+  //   host: process.env.DB_HOST,
+  //   port: process.env.DB_PORT,
+  //   user: process.env.DB_USER,
+  //   database: process.env.DB_NAME,
+  //   password: process.env.DB_PASSWORD,
+  // });
 
   // VIEW PRODUCTS
   app.get("/products", async (req, res) => {
@@ -219,6 +219,8 @@ Nav bar & footer;
 ui/ux - actual interface for edit/delete?
 
 Other follow-ups:
+- Solve footer issue
+- 
 - Add error handling
 - Provide user feedback? e.g. "Successful" - use alerts? which will contain link to listing page to verify
 - create folders for hbs files?
