@@ -125,8 +125,8 @@ async function main() {
       `);
       }
 
-      const checkUserExists = "SELECT * FROM users WHERE user_id=?";
-      const [user] = await connection.execute(checkUserExists, [user_id]);
+      const existingUser = "SELECT * FROM users WHERE user_id=?";
+      const [user] = await connection.execute(existingUser, [user_id]);
 
       if (user.length == 0) {
         return res.status(400).send(
@@ -148,6 +148,7 @@ async function main() {
       res.redirect("/orders");
     } catch (error) {
       console.error("Error creating order: ", error);
+      res.status(500).send("Internal server error.");
     }
   });
 
@@ -229,6 +230,7 @@ async function main() {
       res.redirect("/order_details");
     } catch (error) {
       console.error("Error creating order detail: ", error);
+      res.status(500).send("Internal server error.");
     }
   });
 
@@ -324,6 +326,47 @@ async function main() {
       res.redirect("/order_details");
     } catch (error) {
       console.error("Error updating order detail: ", error);
+      res.status(500).send("Internal server error.");
+    }
+  });
+
+  // DELETE ORDER
+  app.get("/orders/:order_id/delete", async (req, res) => {
+    const order_id = req.params.order_id;
+
+    res.render("delete_order", {
+      order_id: order_id,
+    });
+  });
+
+  app.post("/orders/:order_id/delete", async (req, res) => {
+    try {
+      const order_id = req.params.order_id;
+
+      const existingOrderDetails =
+        "SELECT * FROM order_details WHERE order_id=?";
+
+      const orderDetails = await connection.execute(existingOrderDetails, [
+        order_id,
+      ]);
+
+      if (orderDetails.length > 0) {
+        return res.status(400).send(`<script>
+          alert("Please delete all corresponding order details first");
+          window.location.href="/order_details"
+          </script>`);
+      }
+
+      let query = "DELETE FROM orders WHERE order_id=?";
+
+      let bindings = [order_id];
+
+      await connection.execute(query, bindings);
+
+      res.redirect("/orders");
+    } catch (error) {
+      console.error("Error deleting order: ", error);
+      res.status(500).send("Internal server error.");
     }
   });
 
@@ -331,7 +374,7 @@ async function main() {
   app.get("/order_details/:order_detail_id/delete", async (req, res) => {
     const order_detail_id = req.params.order_detail_id;
 
-    res.render("delete", {
+    res.render("delete_order_detail", {
       order_detail_id: order_detail_id,
     });
   });

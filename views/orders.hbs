@@ -19,11 +19,14 @@
           <td>{{last_name}}</td>
           <td>{{address}}</td>
           <td>{{email}}</td>
+          <td><a
+              href="/orders/{{order_id}}/delete"
+              class="btn btn-danger"
+            >Delete Order</a></td>
         </tr>
       {{/each}}
     </table>
     <a href="/orders/create" class="btn btn-primary">Create Order</a>
-    <a href="/order_details/create" class="btn btn-danger">Delete Order</a>
     <a href="/order_details/create" class="btn btn-success">Add Order Detail</a>
 
   {{/block}}
