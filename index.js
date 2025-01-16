@@ -346,7 +346,7 @@ async function main() {
       const existingOrderDetails =
         "SELECT * FROM order_details WHERE order_id=?";
 
-      const orderDetails = await connection.execute(existingOrderDetails, [
+      const [orderDetails] = await connection.execute(existingOrderDetails, [
         order_id,
       ]);
 
