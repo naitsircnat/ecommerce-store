@@ -113,15 +113,42 @@ async function main() {
   });
 
   app.post("/orders/create", async (req, res) => {
-    const user_id = req.body.user_id;
+    try {
+      const user_id = req.body.user_id;
 
-    let query = "INSERT INTO orders (date_time, user_id) VALUES (NOW(), ?)";
+      if (!user_id) {
+        return res.status(400).send(`
+        <script>
+          alert("Customer's user ID is required!");
+          window.history.back();
+        </script>
+      `);
+      }
 
-    let bindings = [user_id];
+      const checkUserExists = "SELECT * FROM users WHERE user_id=?";
+      const [user] = await connection.execute(checkUserExists, [user_id]);
 
-    await connection.execute(query, bindings);
+      if (user.length == 0) {
+        return res.status(400).send(
+          `
+          <script>
+            alert("Please enter a valid User ID")
+            window.history.back();
+          </script>
+          `
+        );
+      }
 
-    res.redirect("/orders");
+      let query = "INSERT INTO orders (date_time, user_id) VALUES (NOW(), ?)";
+
+      let bindings = [user_id];
+
+      await connection.execute(query, bindings);
+
+      res.redirect("/orders");
+    } catch (error) {
+      console.error("Error creating order: ", error);
+    }
   });
 
   // CREATE ORDER DETAILS
