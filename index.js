@@ -225,13 +225,6 @@ async function main() {
 
       const { order_id, product_id, quantity } = req.body;
 
-      if (!order_id) {
-        res.render("error", {
-          errorMessage: "Order ID is required.",
-        });
-        return;
-      }
-
       if (!product_id) {
         res.render("error", {
           errorMessage: "Product ID is required.",
@@ -246,9 +239,9 @@ async function main() {
         return;
       }
 
-      const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
+      // const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
 
-      const [orderId] = await connection.execute(orderIdCheck, [order_id]);
+      // const [orderId] = await connection.execute(orderIdCheck, [order_id]);
 
       const productIdCheck = "SELECT * FROM products WHERE product_id=?";
 
@@ -264,9 +257,11 @@ async function main() {
       }
 
       let query =
-        "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
+        // "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
+        "UPDATE order_details SET product_id=?, quantity=? WHERE order_detail_id=?";
 
-      let bindings = [order_id, product_id, quantity, order_detail_id];
+      // let bindings = [order_id, product_id, quantity, order_detail_id];
+      let bindings = [product_id, quantity, order_detail_id];
 
       await connection.execute(query, bindings);
 
