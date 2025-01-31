@@ -117,26 +117,16 @@ async function main() {
       const user_id = req.body.user_id;
 
       if (!user_id) {
-        return res.status(400).send(`
-        <script>
-          alert("Customer's user ID is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", { errorMessage: "Please enter a user ID." });
+        return;
       }
 
       const existingUser = "SELECT * FROM users WHERE user_id=?";
       const [user] = await connection.execute(existingUser, [user_id]);
 
       if (user.length == 0) {
-        return res.status(400).send(
-          `
-          <script>
-            alert("Please enter a valid User ID")
-            window.history.back();
-          </script>
-          `
-        );
+        res.render("error", { errorMessage: "Please enter a valid user ID." });
+        return;
       }
 
       let query = "INSERT INTO orders (date_time, user_id) VALUES (NOW(), ?)";
