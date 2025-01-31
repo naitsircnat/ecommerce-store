@@ -152,30 +152,18 @@ async function main() {
       const { order_id, product_id, quantity } = req.body;
 
       if (!order_id) {
-        return res.status(400).send(`
-        <script>
-          alert("Order ID is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", { errorMessage: "Order ID is required." });
+        return;
       }
 
       if (!product_id) {
-        return res.status(400).send(`
-        <script>
-          alert("Product ID is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", { errorMessage: "Product ID is required." });
+        return;
       }
 
       if (!quantity) {
-        return res.status(400).send(`
-        <script>
-          alert("Quantity is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", { errorMessage: "Quantity is required." });
+        return;
       }
 
       const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
@@ -183,14 +171,8 @@ async function main() {
       const [orderId] = await connection.execute(orderIdCheck, [order_id]);
 
       if (orderId.length == 0) {
-        return res.status(400).send(
-          `
-        <script>
-          alert("Please enter a valid Order ID.")
-          window.history.back();
-        </script>
-        `
-        );
+        res.render("error", { errorMessage: "Please enter a valid order ID." });
+        return;
       }
 
       const productIdCheck = "SELECT * FROM products WHERE product_id=?";
@@ -200,14 +182,10 @@ async function main() {
       ]);
 
       if (productId.length == 0) {
-        return res.status(400).send(
-          `
-        <script>
-          alert("Please enter a valid Product ID.")
-          window.history.back();
-        </script>
-        `
-        );
+        res.render("error", {
+          errorMessage: "Please enter a valid product ID.",
+        });
+        return;
       }
 
       let query =
@@ -248,46 +226,36 @@ async function main() {
       const { order_id, product_id, quantity } = req.body;
 
       if (!order_id) {
-        return res.status(400).send(`
-        <script>
-          alert("Order ID is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", {
+          errorMessage: "Order ID is required.",
+        });
+        return;
       }
 
       if (!product_id) {
-        return res.status(400).send(`
-        <script>
-          alert("Product ID is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", {
+          errorMessage: "Product ID is required.",
+        });
+        return;
       }
 
       if (!quantity) {
-        return res.status(400).send(`
-        <script>
-          alert("Quantity is required.");
-          window.history.back();
-        </script>
-      `);
+        res.render("error", {
+          errorMessage: "Quantity is required.",
+        });
+        return;
       }
 
       const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
 
       const [orderId] = await connection.execute(orderIdCheck, [order_id]);
 
-      if (orderId.length == 0) {
-        return res.status(400).send(
-          `
-        <script>
-          alert("Please enter a valid Order ID.")
-          window.history.back();
-        </script>
-        `
-        );
-      }
+      // if (orderId.length == 0) {
+      //   res.render("error", {
+      //     errorMessage: "Please enter a valid order ID.",
+      //   });
+      //   return;
+      // }
 
       const productIdCheck = "SELECT * FROM products WHERE product_id=?";
 
@@ -296,14 +264,10 @@ async function main() {
       ]);
 
       if (productId.length == 0) {
-        return res.status(400).send(
-          `
-        <script>
-          alert("Please enter a valid Product ID.")
-          window.history.back();
-        </script>
-        `
-        );
+        res.render("error", {
+          errorMessage: "Please enter a valid product ID.",
+        });
+        return;
       }
 
       let query =
@@ -341,10 +305,10 @@ async function main() {
       ]);
 
       if (orderDetails.length > 0) {
-        return res.status(400).send(`<script>
-          alert("Please delete all corresponding order details first");
-          window.location.href="/order_details"
-          </script>`);
+        res.render("error", {
+          errorMessage: "Please delete all corresponding order details first.",
+        });
+        return;
       }
 
       let query = "DELETE FROM orders WHERE order_id=?";
@@ -394,8 +358,5 @@ app.listen(3000, () => {
 });
 
 /*
-Other follow-ups:
-- Add ability to delete order
-- Solve footer issue
-- create folders for hbs files
+order details update: make it such that you can't update order ID itself
 */
