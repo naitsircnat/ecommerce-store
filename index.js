@@ -239,10 +239,6 @@ async function main() {
         return;
       }
 
-      // const orderIdCheck = "SELECT * FROM orders WHERE order_id=?";
-
-      // const [orderId] = await connection.execute(orderIdCheck, [order_id]);
-
       const productIdCheck = "SELECT * FROM products WHERE product_id=?";
 
       const [productId] = await connection.execute(productIdCheck, [
@@ -257,10 +253,8 @@ async function main() {
       }
 
       let query =
-        // "UPDATE order_details SET order_id=?, product_id=?, quantity=? WHERE order_detail_id=?";
         "UPDATE order_details SET product_id=?, quantity=? WHERE order_detail_id=?";
 
-      // let bindings = [order_id, product_id, quantity, order_detail_id];
       let bindings = [product_id, quantity, order_detail_id];
 
       await connection.execute(query, bindings);
@@ -345,7 +339,3 @@ main();
 app.listen(3000, () => {
   console.log("Server started");
 });
-
-/*
-order details update: make it such that you can't update order ID itself
-*/
