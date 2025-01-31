@@ -1,14 +1,7 @@
 {{#extends "base"}}
   {{#block "content"}}
-    <h2>Update Order Detail</h2>
+    <h2>Order ID {{order_detail.order_id}} - Update Order Detail</h2>
     <form method="POST">
-      <label>Order ID</label>
-      <input
-        type="text"
-        name="order_id"
-        class="form-control mb-3"
-        value="{{order_detail.order_id}}"
-      />
 
       <label>Product ID</label>
       <input

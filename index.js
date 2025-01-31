@@ -250,13 +250,6 @@ async function main() {
 
       const [orderId] = await connection.execute(orderIdCheck, [order_id]);
 
-      // if (orderId.length == 0) {
-      //   res.render("error", {
-      //     errorMessage: "Please enter a valid order ID.",
-      //   });
-      //   return;
-      // }
-
       const productIdCheck = "SELECT * FROM products WHERE product_id=?";
 
       const [productId] = await connection.execute(productIdCheck, [
@@ -278,6 +271,7 @@ async function main() {
       await connection.execute(query, bindings);
 
       res.redirect("/order_details");
+      return;
     } catch (error) {
       console.error("Error updating order detail: ", error);
       res.status(500).send("Internal server error.");
