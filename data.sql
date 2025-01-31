@@ -1,6 +1,6 @@
--- USE ecommerce;
+USE ecommerce;
 
-USE defaultdb;
+-- USE defaultdb;
 
 -- Add users
 INSERT INTO users (first_name, last_name, email, address) VALUES ('Roger', 'Tan', 'roger@roger.com', '123 Roger Road, #02-22');
