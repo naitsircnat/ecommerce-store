@@ -2,7 +2,7 @@
 
 -- USE ecommerce;
 
-USE defaultdb;
+-- USE defaultdb;
 
 CREATE TABLE users (
   user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
