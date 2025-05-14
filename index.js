@@ -32,11 +32,11 @@ async function main() {
 
   // for connecting to aiven
   connection = await createConnection({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    database: process.env.MYSQLDATABASE,
+    password: process.env.MYSQLPASSWORD,
   });
 
   // VIEW USERS
